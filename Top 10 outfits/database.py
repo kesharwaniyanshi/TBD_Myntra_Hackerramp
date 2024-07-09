@@ -1,13 +1,18 @@
+import os
 import psycopg2
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 def get_top_10_posts():
     try:
         # Connect to your postgres DB
         conn = psycopg2.connect(
-            dbname="myntradb",
-            user="postgres",
-            password="12345",
-            host="localhost"
+            dbname=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            host=os.getenv("DB_HOST")
         )
         
         # Open a cursor to perform database operations
@@ -39,10 +44,10 @@ def calculate_rewards():
     try:
         # Connect to your postgres DB
         conn = psycopg2.connect(
-            dbname="myntradb",
-            user="postgres",
-            password="12345",
-            host="localhost"
+            dbname=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            host=os.getenv("DB_HOST")
         )
         
         # Open a cursor to perform database operations
@@ -82,3 +87,4 @@ def calculate_rewards():
 if __name__ == "__main__":
     get_top_10_posts()
     calculate_rewards()
+
