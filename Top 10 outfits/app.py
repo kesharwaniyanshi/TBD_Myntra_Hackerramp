@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import os
 import psycopg2
@@ -38,7 +38,7 @@ def top_posts():
     posts = get_top_10_posts()
     return jsonify(posts)
 
-def calculate_rewards():
+def get_user_rewards(user_ids):
     try:
         conn = psycopg2.connect(
             dbname=os.getenv("DB_NAME"),
@@ -47,12 +47,18 @@ def calculate_rewards():
             host=os.getenv("DB_HOST")
         )
         cursor = conn.cursor()
-        cursor.execute("""
+        query = """
             SELECT id, SUM(likes) AS total_likes, SUM(shares) AS total_shares, SUM(comments) AS total_comments
             FROM users.user_data
+            WHERE id = ANY(%s)
             GROUP BY id;
-        """)
+        """
+        cursor.execute(query, (user_ids,))
         user_activities = cursor.fetchall()
+        cursor.close()
+        conn.close()
+
+        rewards = []
         for activity in user_activities:
             user_id, total_likes, total_shares, total_comments = activity
             if total_likes >= 10 and total_shares >= 10 and total_comments >= 10:
@@ -63,12 +69,21 @@ def calculate_rewards():
                 reward = 3
             else:
                 reward = "No rewards received"
-            print(f"User ID: {user_id}, Reward: {reward}")
-        cursor.close()
-        conn.close()
+            rewards.append({"user_id": user_id, "reward": reward})
+        return rewards
     except Exception as e:
         print(f"Error: {e}")
+        return []
+
+@app.route('/user_rewards', methods=['POST'])
+def user_rewards():
+    data = request.get_json()
+    user_ids = data.get('user_ids', [])
+    if user_ids:
+        rewards = get_user_rewards(user_ids)
+        return jsonify(rewards)
+    else:
+        return jsonify({"error": "User IDs not provided"})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-    calculate_rewards()
