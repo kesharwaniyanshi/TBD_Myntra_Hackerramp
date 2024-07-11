@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Top 10 Outfits',
       theme: ThemeData(
         primarySwatch: Colors.orange,
-        scaffoldBackgroundColor: Colors.pinkAccent,
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: HomeScreen(),
     );
@@ -25,7 +25,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top 10 Outfits'),
+        title: Row(
+          children: [
+            Image.asset('assets/myntra_logo.png', height: 30), // Add the Myntra logo
+            SizedBox(width: 10),
+            Text('Top 10 Outfits'),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
@@ -97,14 +103,20 @@ class _TopPostsScreenState extends State<TopPostsScreen> {
                   margin: EdgeInsets.all(10.0),
                   child: ListTile(
                     title: Text('Post ID: ${post['post_id']}'),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    subtitle: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Likes: ${post['likes']}'),
-                        Text('Shares: ${post['shares']}'),
-                        Text('Comments: ${post['comments']}'),
-                        Text('Views: ${post['views']}'),
-                        Text('Total Score: ${post['total_score']}'),
+                        Icon(Icons.favorite, color: Colors.red),
+                        SizedBox(width: 5),
+                        Text('${post['likes']}'),
+                        SizedBox(width: 15),
+                        Icon(Icons.share, color: Colors.blue),
+                        SizedBox(width: 5),
+                        Text('${post['shares']}'),
+                        SizedBox(width: 15),
+                        Icon(Icons.comment, color: Colors.green),
+                        SizedBox(width: 5),
+                        Text('${post['comments']}'),
                       ],
                     ),
                   ),
@@ -188,7 +200,7 @@ class _UserRewardScreenState extends State<UserRewardScreen> {
                     margin: EdgeInsets.all(10.0),
                     child: ListTile(
                       title: Text('User ID: ${reward['user_id']}'),
-                      subtitle: Text('Reward: ${reward['reward']}'),
+                      subtitle: Text('${reward['reward']}'),
                     ),
                   );
                 },

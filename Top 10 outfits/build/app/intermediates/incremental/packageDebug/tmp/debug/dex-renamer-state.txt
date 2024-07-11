@@ -1,4 +1,4 @@
-#Thu Jul 11 10:34:03 IST 2024
+#Thu Jul 11 22:07:52 IST 2024
 base.0=C\:\\Users\\Anushka\\OneDrive\\Desktop\\VSCode - Folder\\TBD_Myntra_Hackerramp\\Top 10 outfits\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\Anushka\\OneDrive\\Desktop\\VSCode - Folder\\TBD_Myntra_Hackerramp\\Top 10 outfits\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\Anushka\\OneDrive\\Desktop\\VSCode - Folder\\TBD_Myntra_Hackerramp\\Top 10 outfits\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
