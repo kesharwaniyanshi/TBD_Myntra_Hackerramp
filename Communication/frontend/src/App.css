@@ -1,24 +1,40 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
+ @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
 
-.App {
-    width: 700px;
-    height: 700px;
-    display: flex;
-    /* background-color: aqua; */
-    background-image: url("./background.png");
-    background-position-x: center;
-    background-size: cover;
-}
+ body {
+     margin: 0;
+     padding: 0;
+     /* font-family: 'Work Sans', sans-serif; */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+     background-color: #f0f0f0;
+ }
 
-::-webkit-scrollbar {
-    width: 0px;
-}
+ .App {
+     width: 375px;
+     /* Typical mobile screen width */
+     height: 667px;
+     /* Typical mobile screen height */
+     display: flex;
+     flex-direction: column;
+     background-image: url("./background.png");
+     background-position: center;
+     background-size: cover;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     border-radius: 20px;
+     overflow: hidden;
+ }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(136, 136, 136, 0.281);
-}
+ ::-webkit-scrollbar {
+     width: 0px;
+ }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
+ ::-webkit-scrollbar-thumb {
+     background: rgba(136, 136, 136, 0.281);
+ }
+
+ /* Handle on hover */
+ ::-webkit-scrollbar-thumb:hover {
+     background: #555;
+ }
