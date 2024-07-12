@@ -1,4 +1,4 @@
 .env
 .dart_tool/
-.build/
-.__pycache__/
+build/
+__pycache__/
