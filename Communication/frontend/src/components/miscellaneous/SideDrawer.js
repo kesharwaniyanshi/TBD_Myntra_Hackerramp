@@ -127,11 +127,11 @@ const SideDrawer = () => {
                 p="5px 10px 5px 10px"
                 borderWidth="5px"
             >
-            <img src='/myntra.png' alt='logo'  height={"70"} width={"70"}/>
+            
                 <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
                     <Button variant="ghost" onClick={onOpen}>
-                        <i className="fas fa-search"></i>
-                        <Text d={{ base: "none", md: "flex" }} px={4}>
+                        <i placement="right" className="fas fa-search"></i>
+                        <Text display={{ base: "none", md: "flex" }} px={2} >
                             Search User
                         </Text>
                     </Button>
@@ -139,6 +139,7 @@ const SideDrawer = () => {
                 {/* <Text fontSize="2xl" fontFamily="Work sans">
                     Myntra Buzz
                 </Text> */}
+                <img src='/myntra.png' alt='logo' height={"70"} width={"70"} placement="center" />
                 <div>
                     <Menu>
                         <MenuButton p={1}>
