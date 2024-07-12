@@ -10,11 +10,11 @@ import "./styles.css";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 
-const ENDPOINT ="https://myntra-buzz.onrender.com";
-var socket,selectedChatCompare;
+const ENDPOINT = "https://myntra-buzz.onrender.com";
+var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-    const { user, selectedChat, setSelectedChat,notification,setNotification } = ChatState();
+    const { user, selectedChat, setSelectedChat, notification, setNotification } = ChatState();
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState("");
@@ -61,25 +61,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchMessages();
 
-        selectedChatCompare=selectedChat;
-    },[selectedChat]);
+        selectedChatCompare = selectedChat;
+    }, [selectedChat]);
 
     useEffect(() => {
-        socket.on("message recieved",(newMessageRecieved)=>{
-            if(!selectedChatCompare || selectedChatCompare._id!==newMessageRecieved.chat._id)
-            {
-                if(!notification.includes(newMessageRecieved))
-                {
-                    setNotification([newMessageRecieved,...notification]);
-                    setFetchAgain=(!fetchAgain);
+        socket.on("message recieved", (newMessageRecieved) => {
+            if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
+                if (!notification.includes(newMessageRecieved)) {
+                    setNotification([newMessageRecieved, ...notification]);
+                    setFetchAgain = (!fetchAgain);
                 }
             }
-            else
-            {
-                setMessages([...messages,newMessageRecieved]);
+            else {
+                setMessages([...messages, newMessageRecieved]);
             }
         })
     })
@@ -102,7 +99,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 );
                 console.log(data);
 
-                socket.emit('new message',data)
+                socket.emit('new message', data)
                 setMessages([...messages, data]);
             } catch (error) {
                 toast({
@@ -116,6 +113,49 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             }
         }
     }
+    
+    const sendImage = async (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const { data } = await axios.post('/api/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            const imageUrl = data.imageUrl;
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }
+            };
+
+            const messageData = {
+                content: `<img src="${imageUrl}" alt="Image" />`,
+                chatId: selectedChat._id
+            };
+
+            const response = await axios.post('/api/message', messageData, config);
+
+            socket.emit('new message', response.data);
+            setMessages([...messages, response.data]);
+        } catch (error) {
+            toast({
+                title: "Error Occured!",
+                description: "Failed to send the image",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+            });
+        }
+    };
+
 
     const typingHandler = (e) => {
         setNewMessage(e.target.value);
@@ -172,12 +212,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 size="xl"
                                 w={20}
                                 h={20}
+                                color="magenta"
                                 alignSelf={"center"}
                                 margin={"auto"}
                             />) : (
                                 <div className="messages">
-                               <ScrollableChat messages={messages}/>
-                            </div>
+                                    <ScrollableChat messages={messages} />
+                                </div>
                             )}
                         <FormControl onKeyDown={sendMessage} mt={3} isRequired>
                             <Input
@@ -186,6 +227,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 placeholder="Type a message"
                                 onChange={typingHandler}
                                 value={newMessage}
+                            />
+                        </FormControl>
+                        <FormControl onKeyDown={sendImage} mt={3}>
+                            <Input
+                                type="file"
+                                accept="image/*"
+                                // onChange={sendImage}
+                                mt={3}
                             />
                         </FormControl>
                     </Box>

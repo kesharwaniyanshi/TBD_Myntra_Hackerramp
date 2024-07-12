@@ -42,13 +42,13 @@ const SideDrawer = () => {
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { user,setSelectedChat,chats,setChats ,notification,setNotification} = ChatState();
-    const history=useHistory();
-const toast=useToast();
+    const { user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState();
+    const history = useHistory();
+    const toast = useToast();
 
-    const logoutHandler=()=>{
+    const logoutHandler = () => {
         localStorage.removeItem('userInfo');
-    history.push("/");
+        history.push("/");
     }
 
     const handleSearch = async () => {
@@ -127,7 +127,8 @@ const toast=useToast();
                 p="5px 10px 5px 10px"
                 borderWidth="5px"
             >
-                <Tooltip  label="Search Users to chat" hasArrow placement="bottom-end">
+            <img src='/myntra.png' alt='logo'  height={"70"} width={"70"}/>
+                <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
                     <Button variant="ghost" onClick={onOpen}>
                         <i className="fas fa-search"></i>
                         <Text d={{ base: "none", md: "flex" }} px={4}>
@@ -169,8 +170,8 @@ const toast=useToast();
                             <Avatar
                                 size="sm"
                                 cursor="pointer"
-                            name={user.name}
-                            src={user.pic}
+                                name={user.name}
+                                src={user.pic}
                             />
                         </MenuButton>
                         <MenuList width="50px">

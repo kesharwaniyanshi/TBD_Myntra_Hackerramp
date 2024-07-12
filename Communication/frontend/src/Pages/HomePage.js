@@ -38,7 +38,8 @@ export const Homepage = () => {
                 borderRadius="lg"
                 borderWidth="1px"
             >
-                <Text fontSize="xl" fontFamily="Work sans" fontWeight={1000}>Myntra Buzz</Text>
+            <img src="/logo2.png" height={"100"} width={'100'}/>
+                {/* <Text fontSize="xl" fontFamily="Work sans" fontWeight={1000}>Myntra Buzz</Text> */}
             </Box>
             <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
                 <Tabs isFitted variant="soft-rounded" colorScheme="orange">

@@ -1,6 +1,7 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Tooltip } from "@chakra-ui/tooltip";
 import ScrollableFeed from "react-scrollable-feed";
+import Linkify from "react-linkify";
 import {
     isLastMessage,
     isSameSender,
@@ -41,7 +42,15 @@ const ScrollableChat = ({ messages }) => {
                                 maxWidth: "75%",
                             }}
                         >
-                            {m.content}
+                            <Linkify
+                                componentDecorator={(decoratedHref, decoratedText, key) => (
+                                    <a href={decoratedHref} key={key} target="_blank" rel="noopener noreferrer">
+                                        {decoratedText}
+                                    </a>
+                                )}
+                            >
+                                {m.content}
+                            </Linkify>
                         </span>
                     </div>
                 ))}
