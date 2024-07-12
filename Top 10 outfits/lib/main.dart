@@ -20,55 +20,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset('assets/myntra_logo.png', height: 30), // Add the Myntra logo
-            SizedBox(width: 10),
-            Text('Top 10 Outfits'),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TopPostsScreen()),
-                );
-              },
-              child: Text('View Top Posts'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserRewardScreen()),
-                );
-              },
-              child: Text('Check Your Reward'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class TopPostsScreen extends StatefulWidget {
-  @override
-  _TopPostsScreenState createState() => _TopPostsScreenState();
-}
-
-class _TopPostsScreenState extends State<TopPostsScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   String apiUrl = 'http://10.0.2.2:5000/top_posts'; // Updated for Android Emulator
+  int _selectedIndex = 2;
 
   Future<List<dynamic>> fetchTopPosts() async {
     final response = await http.get(Uri.parse(apiUrl));
@@ -80,11 +39,40 @@ class _TopPostsScreenState extends State<TopPostsScreen> {
     }
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      switch (index) {
+        case 0:
+          // Navigate to home screen
+          break;
+        case 1:
+          // Navigate to chat screen
+          break;
+        case 2:
+          // Navigate to top 10 screen (current screen)
+          break;
+        case 3:
+          // Navigate to shopping screen
+          break;
+        case 4:
+          // Navigate to profile screen
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top 10 Outfits'),
+        title: Row(
+          children: [
+            Image.asset('assets/myntra_logo.png', height: 30), // Add the Myntra logo
+            SizedBox(width: 10),
+            Text('Top 10 Outfits'),
+          ],
+        ),
       ),
       body: FutureBuilder<List<dynamic>>(
         future: fetchTopPosts(),
@@ -125,6 +113,44 @@ class _TopPostsScreenState extends State<TopPostsScreen> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserRewardScreen()),
+          );
+        },
+        child: Icon(Icons.redeem),
+        backgroundColor: Colors.orange,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: ImageIcon(AssetImage('assets/myntra_logo.png'), color: Colors.black),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat, color: Colors.black),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star, color: Colors.black),
+            label: 'Top 10',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart, color: Colors.black),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: Colors.black),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.black,
+        onTap: _onItemTapped,
       ),
     );
   }
