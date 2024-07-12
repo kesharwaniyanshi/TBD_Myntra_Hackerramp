@@ -7,9 +7,14 @@ import UpdatedGroupChatModal from "./miscellaneous/UpdatedGroupChatModal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles.css";
+import ScrollableChat from "./ScrollableChat";
+import io from "socket.io-client";
+
+const ENDPOINT ="http://localhost:5000";
+var socket,selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-    const { user, selectedChat, setSelectedChat } = ChatState();
+    const { user, selectedChat, setSelectedChat,notification,setNotification } = ChatState();
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState("");
@@ -18,6 +23,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [istyping, setIsTyping] = useState(false);
     const toast = useToast();
 
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
+        socket.on('connection', () => setSocketConnected(true));
+    }, []);
     const fetchMessages = async () => {
         if (!selectedChat)
             return;
@@ -36,6 +46,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             // console.log(data);
             setMessages(data);
             setLoading(false);
+
+            socket.emit('join chat', selectedChat._id);
         } catch (error) {
             toast({
                 title: "Error Occured!",
@@ -51,7 +63,26 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     useEffect(()=>{
         fetchMessages();
+
+        selectedChatCompare=selectedChat;
     },[selectedChat]);
+
+    useEffect(() => {
+        socket.on("message recieved",(newMessageRecieved)=>{
+            if(!selectedChatCompare || selectedChatCompare._id!==newMessageRecieved.chat._id)
+            {
+                if(!notification.includes(newMessageRecieved))
+                {
+                    setNotification([newMessageRecieved,...notification]);
+                    setFetchAgain=(!fetchAgain);
+                }
+            }
+            else
+            {
+                setMessages([...messages,newMessageRecieved]);
+            }
+        })
+    })
 
     const sendMessage = async (event) => {
         if (event.key === "Enter" && newMessage) {
@@ -70,6 +101,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     config
                 );
                 console.log(data);
+
+                socket.emit('new message',data)
                 setMessages([...messages, data]);
             } catch (error) {
                 toast({
@@ -83,6 +116,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             }
         }
     }
+
     const typingHandler = (e) => {
         setNewMessage(e.target.value);
     }
@@ -142,7 +176,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                                 margin={"auto"}
                             />) : (
                                 <div className="messages">
-                                {/* {/messages} */}
+                               <ScrollableChat messages={messages}/>
                             </div>
                             )}
                         <FormControl onKeyDown={sendMessage} mt={3} isRequired>
