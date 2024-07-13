@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from "@chakra-ui/button";
+import { IconButton } from '@chakra-ui/react'
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
@@ -18,7 +19,7 @@ import {
     DrawerOverlay,
 } from "@chakra-ui/modal";
 import { Tooltip } from "@chakra-ui/tooltip";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -118,19 +119,32 @@ const SideDrawer = () => {
     };
     return (
         <>
-            <Box
+        <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
                 bg="white"
                 w="100%"
+                // p="5px 10px 5px 10px"
+                borderWidth="0px"
+                >
+            <Box
+                display="flex"
+                justifyContent="left"
+                alignItems="center"
+                bg="white"
+                w="100%"
                 p="5px 10px 5px 10px"
-                borderWidth="5px"
+                // borderWidth="5px"
             >
-            
+                <IconButton
+                    display={{ base: "flex", md: "flex" }}
+                    icon={<ArrowBackIcon />}
+                // onClick={() => setSelectedChat("")}
+                />
                 <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-                    <Button variant="ghost" onClick={onOpen}>
-                        <i placement="right" className="fas fa-search"></i>
+                    <Button variant="ghost" onClick={onOpen} >
+                        <i className="fas fa-search" ></i>
                         <Text display={{ base: "none", md: "flex" }} px={2} >
                             Search User
                         </Text>
@@ -139,7 +153,16 @@ const SideDrawer = () => {
                 {/* <Text fontSize="2xl" fontFamily="Work sans">
                     Myntra Buzz
                 </Text> */}
-                <img src='/myntra.png' alt='logo' height={"70"} width={"70"} placement="center" />
+            </Box>
+            <img src='/myntra.png' alt='logo' height={"70"} width={"70"} placement="center" />
+            <Box display="flex"
+                justifyContent="right"
+                alignItems="center"
+                bg="white"
+                w="100%"
+                p="5px 10px 5px 10px"
+                // borderWidth="5px"
+                >
                 <div>
                     <Menu>
                         <MenuButton p={1}>
@@ -185,7 +208,7 @@ const SideDrawer = () => {
                     </Menu>
                 </div>
             </Box>
-
+        </Box>
             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
