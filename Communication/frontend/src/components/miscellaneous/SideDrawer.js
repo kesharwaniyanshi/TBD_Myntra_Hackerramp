@@ -160,7 +160,7 @@ const SideDrawer = () => {
                 alignItems="center"
                 bg="white"
                 w="100%"
-                p="5px 10px 5px 10px"
+                // p="5px 10px 5px 10px"
                 // borderWidth="5px"
                 >
                 <div>
@@ -170,7 +170,7 @@ const SideDrawer = () => {
                                 count={notification.length}
                                 effect={Effect.SCALE}
                             />
-                            <BellIcon fontSize="2xl" m={1} />
+                            <BellIcon fontSize="xl" m={1} />
                         </MenuButton>
                         <MenuList pl={2}>
                             {!notification.length && "No New Messages"}
@@ -192,7 +192,7 @@ const SideDrawer = () => {
                     <Menu>
                         <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
                             <Avatar
-                                size="sm"
+                                size="xs"
                                 cursor="pointer"
                                 name={user.name}
                                 src={user.pic}
