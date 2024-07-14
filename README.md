@@ -9,8 +9,8 @@ This repository contains the codebase for the Myntra Hackerramp project, which i
 ### 1. Top 10 Outfits
 A feature showcasing the top 10 outfits, developed using PostgreSQL, Python, and Flutter.
 
-### 2. Chat Application
-A chat app built using the MERN stack (MongoDB, Express, React, Node.js).
+### 2. Communication
+A chat feature built using the MERN stack (MongoDB, Express, React, Node.js).
 
 ### 3. Recommendation System
 A system that provides personalized recommendations based on user data, implemented using Python, Flask, and various datasets.
@@ -32,13 +32,33 @@ A system that provides personalized recommendations based on user data, implemen
 
 ### Chat Application
 
-1. Navigate to the chat app directory:
+#### Backend Setup
+
+1. Navigate to the chat app backend directory:
    ```bash
-   cd Communication
+   cd Communication/backend
    ```
-2. Install dependencies and run the server:
+2. Install dependencies:
    ```bash
    npm install
+   ```
+3. Start the server:
+   ```bash
+   npm start
+   ```
+
+#### Frontend Setup
+
+1. Navigate to the chat app frontend directory:
+   ```bash
+   cd Communication/frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
    npm start
    ```
 
