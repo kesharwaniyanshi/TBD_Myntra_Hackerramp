@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="logo">Myntra</h1>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Welcome to Your Shopping Assistant</h1>
+        <form action="/recommend" method="POST" aria-labelledby="form-label">
+            <label id="form-label" for="user_id">Enter User ID:</label>
+            <input type="text" id="user_id" name="user_id" required aria-required="true" aria-describedby="user_id_desc">
+            <span id="user_id_desc" class="sr-only">Enter your User ID to get recommendations.</span>
+            <button type="submit">Get Recommendations</button>
+        </form>
+    </div>
+</body>
+</html>

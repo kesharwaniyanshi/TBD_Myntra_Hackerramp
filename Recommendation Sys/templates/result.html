@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Myntra</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>Top 10 picks for you</h1>
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+        <div class="recommendations">
+            {% for image_url, product_id in recommendations %}
+                <div class="recommendation-item">
+                    <img src="{{ image_url }}" alt="Product Image">
+                    <p>Product ID: {{ product_id }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
