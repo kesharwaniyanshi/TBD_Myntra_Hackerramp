@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from "@chakra-ui/button";
+import { IconButton } from '@chakra-ui/react'
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
 import { Box, Text } from "@chakra-ui/layout";
@@ -18,7 +19,7 @@ import {
     DrawerOverlay,
 } from "@chakra-ui/modal";
 import { Tooltip } from "@chakra-ui/tooltip";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -42,13 +43,13 @@ const SideDrawer = () => {
     const [loading, setLoading] = useState(false);
     const [loadingChat, setLoadingChat] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { user,setSelectedChat,chats,setChats ,notification,setNotification} = ChatState();
-    const history=useHistory();
-const toast=useToast();
+    const { user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState();
+    const history = useHistory();
+    const toast = useToast();
 
-    const logoutHandler=()=>{
+    const logoutHandler = () => {
         localStorage.removeItem('userInfo');
-    history.push("/");
+        history.push("/");
     }
 
     const handleSearch = async () => {
@@ -118,19 +119,33 @@ const toast=useToast();
     };
     return (
         <>
-            <Box
+        <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
                 bg="white"
                 w="100%"
+                // p="5px 10px 5px 10px"
+                borderWidth="0px"
+                >
+            <Box
+                display="flex"
+                justifyContent="left"
+                alignItems="center"
+                bg="white"
+                w="100%"
                 p="5px 10px 5px 10px"
-                borderWidth="5px"
+                // borderWidth="5px"
             >
-                <Tooltip  label="Search Users to chat" hasArrow placement="bottom-end">
-                    <Button variant="ghost" onClick={onOpen}>
-                        <i className="fas fa-search"></i>
-                        <Text d={{ base: "none", md: "flex" }} px={4}>
+                <IconButton
+                    display={{ base: "flex", md: "flex" }}
+                    icon={<ArrowBackIcon />}
+                // onClick={() => setSelectedChat("")}
+                />
+                <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+                    <Button variant="ghost" onClick={onOpen} >
+                        <i className="fas fa-search" ></i>
+                        <Text display={{ base: "none", md: "flex" }} px={2} >
                             Search User
                         </Text>
                     </Button>
@@ -138,6 +153,16 @@ const toast=useToast();
                 {/* <Text fontSize="2xl" fontFamily="Work sans">
                     Myntra Buzz
                 </Text> */}
+            </Box>
+            <img src='/myntra.png' alt='logo' height={"70"} width={"70"} placement="center" />
+            <Box display="flex"
+                justifyContent="right"
+                alignItems="center"
+                bg="white"
+                w="100%"
+                // p="5px 10px 5px 10px"
+                // borderWidth="5px"
+                >
                 <div>
                     <Menu>
                         <MenuButton p={1}>
@@ -145,7 +170,7 @@ const toast=useToast();
                                 count={notification.length}
                                 effect={Effect.SCALE}
                             />
-                            <BellIcon fontSize="2xl" m={1} />
+                            <BellIcon fontSize="xl" m={1} />
                         </MenuButton>
                         <MenuList pl={2}>
                             {!notification.length && "No New Messages"}
@@ -167,10 +192,10 @@ const toast=useToast();
                     <Menu>
                         <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
                             <Avatar
-                                size="sm"
+                                size="xs"
                                 cursor="pointer"
-                            name={user.name}
-                            src={user.pic}
+                                name={user.name}
+                                src={user.pic}
                             />
                         </MenuButton>
                         <MenuList width="50px">
@@ -183,7 +208,7 @@ const toast=useToast();
                     </Menu>
                 </div>
             </Box>
-
+        </Box>
             <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>

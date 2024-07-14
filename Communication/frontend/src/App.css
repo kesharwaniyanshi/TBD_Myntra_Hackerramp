@@ -45,9 +45,11 @@
   .App {
       min-height: 100vh;
       display: flex;
-      background-image: url("./background.png");
+      /* background-image: url("./background.png"); */
+      background-color: #e0e0e0;
       background-position: center;
       background-size: cover;
+      /* color: #fffaff; */
   }
 
   ::-webkit-scrollbar {
