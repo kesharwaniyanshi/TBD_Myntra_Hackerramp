@@ -71,6 +71,13 @@ A system that provides personalized recommendations based on user data, implemen
 2. Install dependencies and run the application:
    ```bash
    flutter pub get
+   ```
+3. Update API URL in Flutter Code:
+   ```bash
+   String apiUrl = 'http://your_backend_server_address:port/top_posts';
+   ```
+4. Run the application
+   ```bash
    flutter run
    ```
 
