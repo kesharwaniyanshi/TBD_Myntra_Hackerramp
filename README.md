@@ -15,6 +15,19 @@ A chat feature built using the MERN stack (MongoDB, Express, React, Node.js).
 ### 3. Recommendation System
 A system that provides personalized recommendations based on user data, implemented using Python, Flask, and various datasets.
 
+## Screenshots
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/951da757-d1a6-4774-81f6-75c2b69cbce8" alt="Homepage" width="300"/>
+  <img src="https://github.com/user-attachments/assets/cf0b6578-2a72-42a2-8d71-232b86b6269c" alt="Product Listing" width="300"/>
+</p>
+<p align="center">
+   
+  <img src="https://github.com/user-attachments/assets/27d5daa9-8963-450a-8394-35b62636a94b" alt="Product Details" width="300"/>
+  <img src="https://github.com/user-attachments/assets/77f07f81-955a-45d5-a242-c14ed094b57b" alt="Product Details" width="300"/>
+  <img src="https://github.com/user-attachments/assets/2a03860e-32d0-450c-b1c6-28e322da9b42" alt="Checkout Page" width="300"/>
+</p>
+
 ## Technologies Used
 
 - **JavaScript (MERN)**
